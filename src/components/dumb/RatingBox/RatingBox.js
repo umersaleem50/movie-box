@@ -10,7 +10,7 @@ const RatingBox = (props) => {
       <div className={classes.LogoBox}>
         <img src={ImdbLogo} alt="Imdb Logo" />
         <Typography
-          type="regular"
+          type="sub-heading"
           style={{ color: "#fff" }}
           text={props.rating + "/10"}
         />
@@ -18,7 +18,7 @@ const RatingBox = (props) => {
       <div className={classes.LogoBox}>
         <img src={Rotten} alt="Imdb Logo" />
         <Typography
-          type="regular"
+          type="sub-heading"
           style={{ color: "#fff" }}
           text={props.rating * 10 + "%"}
         />

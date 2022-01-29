@@ -29,6 +29,11 @@ const MovieBoxSmall = (props) => {
     imgRef.current.style.height = "100%";
   };
 
+  const generateShortSentence = (sentence) => {
+    if (sentence.split(" ").length < 20) return sentence;
+    return [...sentence.split(" ")].slice(0, 20).join(" ") + "...";
+  };
+
   return (
     <figure className={classes.MovieBox}>
       <div className={classes.ImgBox}>
@@ -49,7 +54,7 @@ const MovieBoxSmall = (props) => {
           ({props.releaseDate && props.releaseDate.split("-")[0]})
         </Typography>
         <Typography type="paragraph" style={styleDetail}>
-          {props.details}
+          {generateShortSentence(props.details)}
         </Typography>
         {/* <p>{props.type.join(", ")}</p> */}
         {/* <p>{props.details}</p> */}

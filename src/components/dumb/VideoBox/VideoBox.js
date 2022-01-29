@@ -12,7 +12,8 @@ const VideoBox = (props) => {
         muted={props.background}
         autoPlay={props.background}
         controls={!props.background}
-        loop={props.background}
+        // loop={props.background}
+        onEnded={props.videoEnd}
       />
     </Aux>
   );

@@ -7,6 +7,13 @@
 }
 .Container {
   margin: 4rem 8rem;
+
+  @media only screen and (max-width: 900px) {
+    margin: 2.5rem 4rem;
+  }
+  @media only screen and (max-width: 600px) {
+    margin: 2.5rem 2rem;
+  }
   // max-width: 144rem;
 }
 

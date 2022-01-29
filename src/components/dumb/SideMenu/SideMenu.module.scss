@@ -11,6 +11,9 @@
   padding: 3rem;
   transform: translateX(100%);
   transition: transform 0.2s ease-in;
+  @media only screen and (max-width: 600px) {
+    max-width: 70%;
+  }
 }
 
 .Navigation {

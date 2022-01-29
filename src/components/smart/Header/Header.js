@@ -3,6 +3,7 @@ import classes from "./Header.module.scss";
 import VideoBox from "../../dumb/VideoBox/VideoBox";
 import video from "../../../assets/yourname.mp4";
 import video2 from "../../../assets/trailer.mp4";
+import video3 from "../../../assets/spiderman.mp4";
 import SideMenu from "../../dumb/SideMenu/SideMenu";
 import Navigation from "../../dumb/Navigation/Navigation";
 import MovieDetail from "../../dumb/MovieDetail/Big/MovieDetail";
@@ -23,8 +24,8 @@ class Header extends Component {
           "Arcane is an animated action-adventure series created by Christian Linke and Alex Yee for Netflix. Produced by Fortiche Production and Riot Games",
       },
       {
-        src: video,
-        heading: "Arcane: 2021",
+        src: video3,
+        heading: "Spiderman: Into the spider verse",
         detail:
           "Arcane is an animated action-adventure series created by Christian Linke and Alex Yee for Netflix. Produced by Fortiche Production and Riot Games",
       },
@@ -44,6 +45,16 @@ class Header extends Component {
       toggleSideMenu: !prevState.toggleSideMenu,
     }));
     // console.log("clicked", this.state.toggleSideMenu);
+  };
+
+  playNextMovie = () => {
+    if (this.state.currentMovieIndex === this.state.movies.length) {
+      this.setState({ currentMovieIndex: 1 });
+      return;
+    }
+    this.setState((prevState, prevProp) => {
+      return { currentMovieIndex: prevState.currentMovieIndex + 1 };
+    });
   };
 
   render() {
@@ -79,6 +90,7 @@ class Header extends Component {
           src={this.state.movies[this.state.currentMovieIndex - 1].src}
           background={true}
           overlay={0.5}
+          videoEnd={this.playNextMovie}
         />
       </header>
     );
