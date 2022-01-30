@@ -1,0 +1,17 @@
+.Slider {
+  // width: 100%;
+  height: auto;
+  display: flex;
+  align-items: center;
+  max-width: 114rem;
+  margin: 0 auto;
+  // padding: 1rem rem;
+  overflow: hidden;
+}
+.Slide {
+  white-space: nowrap;
+  display: grid;
+  grid-auto-columns: 1fr;
+  grid-auto-flow: column;
+  grid-gap: 4rem;
+}

@@ -47,7 +47,7 @@ const MovieBoxSmall = (props) => {
         />
       </div>
       <div className={classes.Details}>
-        <Typography style={styleHeading} type="sub-heading">
+        <Typography style={styleHeading} type="regular">
           {props.heading}
         </Typography>
         <Typography type="paragraph" style={styleDate}>

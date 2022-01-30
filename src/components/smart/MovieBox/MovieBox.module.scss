@@ -1,0 +1,16 @@
+.MovieBox {
+  width: 22rem;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.ImgContainer {
+  width: 100%;
+  height: 30rem;
+  img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+  }
+}
