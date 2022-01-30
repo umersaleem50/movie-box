@@ -7,7 +7,7 @@ import video3 from "../../../assets/spiderman.mp4";
 import SideMenu from "../../dumb/SideMenu/SideMenu";
 import Navigation from "../../dumb/Navigation/Navigation";
 import MovieDetail from "../../dumb/MovieDetail/Big/MovieDetail";
-import NumberSlider from "../../dumb/Slider/Number Slider/NumberSlider";
+import NumberSlider from "../../dumb/Number Slider/NumberSlider";
 class Header extends Component {
   state = {
     movies: [

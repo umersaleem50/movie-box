@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Typography from "../../../UI/Typography/Typography";
+import Typography from "../../UI/Typography/Typography";
 import classes from "./NumberSlider.module.scss";
 
 class NumberSlider extends Component {
