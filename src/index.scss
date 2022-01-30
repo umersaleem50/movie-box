@@ -1,5 +1,14 @@
 @import "./Colors.scss";
 
+:root {
+  --color-primary: #be123c;
+  --color-white: #eee;
+  --color-white-light: rgb(219, 218, 218);
+  --color-white-grey: rgb(114, 113, 113);
+  --color-overlay: #000;
+  --color-black-light: rgb(27, 27, 27);
+}
+
 *,
 *::before,
 *::after {

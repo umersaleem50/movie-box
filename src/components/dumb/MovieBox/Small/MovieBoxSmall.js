@@ -6,7 +6,7 @@ import Typography from "../../../UI/Typography/Typography";
 import Spinner from "../../../UI/Spinner/Spinner";
 const MovieBoxSmall = (props) => {
   // const BASE_URL = "https://image.tmdb.org/t/p/original";
-  const imgRef = React.createRef();
+  // const imgRef = React.createRef();
   const [isLoaded, setIsLoaded] = useState(false);
 
   const styleHeading = {
@@ -23,11 +23,11 @@ const MovieBoxSmall = (props) => {
     color: "rgba(0,0,0, .6)",
   };
 
-  const loaded = () => {
-    setIsLoaded(true);
-    imgRef.current.style.opacity = "1";
-    imgRef.current.style.height = "100%";
-  };
+  // const loaded = () => {
+  //   setIsLoaded(true);
+  //   // imgRef.current.style.opacity = "1";
+  //   // imgRef.current.style.height = "100%";
+  // };
 
   const generateShortSentence = (sentence) => {
     if (sentence.split(" ").length < 20) return sentence;
@@ -42,8 +42,8 @@ const MovieBoxSmall = (props) => {
           className={classes.Img}
           src={(props.imgURL && BASE_URL_IMG + props.imgURL) || noImage}
           alt="Img"
-          ref={imgRef}
-          onLoad={loaded}
+          // ref={imgRef}
+          onLoad={() => setIsLoaded(true)}
         />
       </div>
       <div className={classes.Details}>

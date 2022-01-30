@@ -21,6 +21,12 @@ const Button = React.forwardRef((props, ref) => {
     case "close":
       assignClass.push(classes.Close);
       break;
+    case "leftArrow":
+      assignClass.push(classes.LeftArrow);
+      break;
+    case "rightArrow":
+      assignClass.push(classes.RightArrow);
+      break;
     case "outline":
       assignClass.push(classes.Outline);
       if (props.active) {
@@ -34,11 +40,11 @@ const Button = React.forwardRef((props, ref) => {
   return (
     <button
       ref={ref}
-      style={{ ...props.style }}
+      style={props.style}
       className={assignClass.join(" ")}
       onClick={props.clicked}
     >
-      {props.text || props.children || "Button"}
+      {props.text || props.children}
     </button>
   );
 });

@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import Button from "../../UI/Button/Button";
+import Typography from "../../UI/Typography/Typography";
 import classes from "./Slider.module.scss";
 
 const Slider = (
@@ -15,6 +17,57 @@ const Slider = (
     state = {
       currentIndex: 0,
       testData: [
+        {
+          poster_path: "/TRfZEQSG8C9MNLxi3gs4s8aIwi.jpg",
+          adult: false,
+          overview:
+            "From DC Comics comes the Suicide Squad, an antihero team of incarcerated supervillains who act as deniable assets for the United States government, undertaking high-risk black ops missions in exchange for commuted prison sentences.",
+          release_date: "2016-08-03",
+          genre_ids: [14, 28, 80],
+          id: 297761,
+          original_title: "Suicide Squad",
+          original_language: "en",
+          title: "Suicide Squad",
+          backdrop_path: "/ndlQ2Cuc3cjTL7lTynw6I4boP4S.jpg",
+          popularity: 48.261451,
+          vote_count: 1466,
+          video: false,
+          vote_average: 5.91,
+        },
+        {
+          poster_path: "/TRfZEQSG8C9MNLxi3gs4s8aIwi.jpg",
+          adult: false,
+          overview:
+            "From DC Comics comes the Suicide Squad, an antihero team of incarcerated supervillains who act as deniable assets for the United States government, undertaking high-risk black ops missions in exchange for commuted prison sentences.",
+          release_date: "2016-08-03",
+          genre_ids: [14, 28, 80],
+          id: 297761,
+          original_title: "Suicide Squad",
+          original_language: "en",
+          title: "Suicide Squad",
+          backdrop_path: "/ndlQ2Cuc3cjTL7lTynw6I4boP4S.jpg",
+          popularity: 48.261451,
+          vote_count: 1466,
+          video: false,
+          vote_average: 5.91,
+        },
+        {
+          poster_path: "/TRfZEQSG8C9MNLxi3gs4s8aIwi.jpg",
+          adult: false,
+          overview:
+            "From DC Comics comes the Suicide Squad, an antihero team of incarcerated supervillains who act as deniable assets for the United States government, undertaking high-risk black ops missions in exchange for commuted prison sentences.",
+          release_date: "2016-08-03",
+          genre_ids: [14, 28, 80],
+          id: 297761,
+          original_title: "Suicide Squad",
+          original_language: "en",
+          title: "Suicide Squad",
+          backdrop_path: "/ndlQ2Cuc3cjTL7lTynw6I4boP4S.jpg",
+          popularity: 48.261451,
+          vote_count: 1466,
+          video: false,
+          vote_average: 5.91,
+        },
         {
           poster_path: "/TRfZEQSG8C9MNLxi3gs4s8aIwi.jpg",
           adult: false,
@@ -72,9 +125,14 @@ const Slider = (
     render() {
       return (
         <div className={classes.Slider}>
-          <div className={classes.Slide}>
-            {this.generateChildData(this.state.testData)}
+          <Typography type="sub-heading" text={parentProps.heading} />
+          <Button type="leftArrow" style={{ left: "-6rem" }} />
+          <div className={classes.SlideContainer}>
+            <div className={classes.Slide}>
+              {this.generateChildData(this.state.testData)}
+            </div>
           </div>
+          <Button type="rightArrow" style={{ right: "-6rem" }} />
         </div>
       );
     }
