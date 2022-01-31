@@ -2,22 +2,27 @@ import React from "react";
 import { Component } from "react";
 import { BASE_URL_IMG_500 } from "../../../Axios/Config";
 import noImage from "../../../assets/noImg.png";
+import heartLogo from "../../../assets/logo/heart.png";
 import RatingBox from "../../dumb/RatingBox/Small/RatingBox--small";
 import Typography from "../../UI/Typography/Typography";
 import Spinner from "../../UI/Spinner/Spinner";
 import classes from "./MovieBox.module.scss";
+import Button from "../../UI/Button/Button";
+import genreAxios from "../../../Axios/genersAxios";
+import { generateHeading } from "../../../Axios/HelperFunctions";
 
 class MovieBox extends Component {
   state = {
     isLoaded: false,
+    isFavorite: false,
   };
 
   refImage = React.createRef();
 
-  generateGenres(data) {
-    const genreArr = data.map((genre, i) => genre.name);
-    return genreArr.join(", ");
-  }
+  // generateGenres() {
+  //   genreAxios.get("/").then((res) => console.log(res));
+  //   return "test";
+  // }
 
   loaded = () => {
     this.setState({ isLoaded: true });
@@ -36,6 +41,19 @@ class MovieBox extends Component {
     return (
       <figure className={classes.MovieBox}>
         <div className={classes.ImgContainer}>
+          <Button
+            type="logo"
+            style={{
+              position: "absolute",
+              top: "1.5rem",
+              right: "1.5rem",
+              backgroundColor: this.state.isFavorite ? "#be123c" : "#eeeeee81",
+            }}
+            clicked={() => {
+              console.log(this.state.isFavorite);
+              this.setState({ isFavorite: !this.state.isFavorite });
+            }}
+          />
           {!this.state.isLoaded && <Spinner />}
           <img
             ref={this.refImage}
@@ -53,11 +71,15 @@ class MovieBox extends Component {
         />
         <Typography
           type="sub-heading"
-          text={this.props.title}
-          style={{ marginBottom: ".5rem" }}
+          text={generateHeading(this.props.title)}
+          style={{ marginBottom: ".5rem", whiteSpace: "pre-line" }}
         />
         <RatingBox rating={this.props.vote_average} />
-        <Typography type="regular" text={"test"} style={styleTypography} />
+        <Typography
+          type="regular"
+          text={this.props.genre_ids || "test"}
+          style={styleTypography}
+        />
       </figure>
     );
   }

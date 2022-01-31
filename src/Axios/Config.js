@@ -13,7 +13,7 @@ const MOVIE_BOX_PROPS = {
   release_date: "",
   title: "",
   vote_average: "",
-  genres: "",
+  genre_ids: "",
 };
 
 // console.log(params.language);

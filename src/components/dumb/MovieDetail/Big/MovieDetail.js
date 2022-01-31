@@ -2,20 +2,8 @@ import Button from "../../../UI/Button/Button";
 import Typography from "../../../UI/Typography/Typography";
 import RatingBox from "../../RatingBox/RatingBox";
 import classes from "./MovieDetail.module.scss";
-
+import { generateHeading } from "../../../../Axios/HelperFunctions";
 const MovieDetail = (props) => {
-  const generateHeading = (word) => {
-    // const heading = props.heading;
-    if (word.split(" ").length < 2 || !word.includes(":")) {
-      console.log("nope");
-      return word;
-    }
-    const splitArr = word.split(":");
-    splitArr[0] = splitArr[0] + ":";
-    splitArr[1] = splitArr[1].trim();
-    return splitArr.join("\n");
-  };
-
   return (
     <div className={classes.DetailBox}>
       <Typography
@@ -23,7 +11,6 @@ const MovieDetail = (props) => {
         text={generateHeading(props.heading)}
         style={{
           whiteSpace: "pre-line",
-
           color: props.dark || "#fff",
         }}
       />

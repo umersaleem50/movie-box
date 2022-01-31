@@ -3,115 +3,45 @@ import Button from "../../UI/Button/Button";
 import Typography from "../../UI/Typography/Typography";
 import classes from "./Slider.module.scss";
 
-const Slider = (
-  ChildComponent,
-  childProps,
-  parentProps,
-  axios,
-  dataToDisplay
-) => {
+const Slider = (ChildComponent, axios, childProps, parentProps) => {
   class SlideComponent extends Component {
     constructor(props) {
       super(props);
     }
     state = {
       currentIndex: 0,
-      testData: [
-        {
-          poster_path: "/TRfZEQSG8C9MNLxi3gs4s8aIwi.jpg",
-          adult: false,
-          overview:
-            "From DC Comics comes the Suicide Squad, an antihero team of incarcerated supervillains who act as deniable assets for the United States government, undertaking high-risk black ops missions in exchange for commuted prison sentences.",
-          release_date: "2016-08-03",
-          genre_ids: [14, 28, 80],
-          id: 297761,
-          original_title: "Suicide Squad",
-          original_language: "en",
-          title: "Suicide Squad",
-          backdrop_path: "/ndlQ2Cuc3cjTL7lTynw6I4boP4S.jpg",
-          popularity: 48.261451,
-          vote_count: 1466,
-          video: false,
-          vote_average: 5.91,
-        },
-        {
-          poster_path: "/TRfZEQSG8C9MNLxi3gs4s8aIwi.jpg",
-          adult: false,
-          overview:
-            "From DC Comics comes the Suicide Squad, an antihero team of incarcerated supervillains who act as deniable assets for the United States government, undertaking high-risk black ops missions in exchange for commuted prison sentences.",
-          release_date: "2016-08-03",
-          genre_ids: [14, 28, 80],
-          id: 297761,
-          original_title: "Suicide Squad",
-          original_language: "en",
-          title: "Suicide Squad",
-          backdrop_path: "/ndlQ2Cuc3cjTL7lTynw6I4boP4S.jpg",
-          popularity: 48.261451,
-          vote_count: 1466,
-          video: false,
-          vote_average: 5.91,
-        },
-        {
-          poster_path: "/TRfZEQSG8C9MNLxi3gs4s8aIwi.jpg",
-          adult: false,
-          overview:
-            "From DC Comics comes the Suicide Squad, an antihero team of incarcerated supervillains who act as deniable assets for the United States government, undertaking high-risk black ops missions in exchange for commuted prison sentences.",
-          release_date: "2016-08-03",
-          genre_ids: [14, 28, 80],
-          id: 297761,
-          original_title: "Suicide Squad",
-          original_language: "en",
-          title: "Suicide Squad",
-          backdrop_path: "/ndlQ2Cuc3cjTL7lTynw6I4boP4S.jpg",
-          popularity: 48.261451,
-          vote_count: 1466,
-          video: false,
-          vote_average: 5.91,
-        },
-        {
-          poster_path: "/TRfZEQSG8C9MNLxi3gs4s8aIwi.jpg",
-          adult: false,
-          overview:
-            "From DC Comics comes the Suicide Squad, an antihero team of incarcerated supervillains who act as deniable assets for the United States government, undertaking high-risk black ops missions in exchange for commuted prison sentences.",
-          release_date: "2016-08-03",
-          genre_ids: [14, 28, 80],
-          id: 297761,
-          original_title: "Suicide Squad",
-          original_language: "en",
-          title: "Suicide Squad",
-          backdrop_path: "/ndlQ2Cuc3cjTL7lTynw6I4boP4S.jpg",
-          popularity: 48.261451,
-          vote_count: 1466,
-          video: false,
-          vote_average: 5.91,
-        },
-        {
-          poster_path: "/TRfZEQSG8C9MNLxi3gs4s8aIwi.jpg",
-          adult: false,
-          overview:
-            "From DC Comics comes the Suicide Squad, an antihero team of incarcerated supervillains who act as deniable assets for the United States government, undertaking high-risk black ops missions in exchange for commuted prison sentences.",
-          release_date: "2016-08-03",
-          genre_ids: [14, 28, 80],
-          id: 297761,
-          original_title: "Suicide Squad",
-          original_language: "en",
-          title: "Suicide Squad",
-          backdrop_path: "/ndlQ2Cuc3cjTL7lTynw6I4boP4S.jpg",
-          popularity: 48.261451,
-          vote_count: 1466,
-          video: false,
-          vote_average: 5.91,
-        },
-      ],
+      childData: [],
+      isError: null,
     };
 
-    fetchData(axios) {
-      if (!axios) return;
+    fetchData() {
+      axios
+        .get("/")
+        .then((res) => this.setState({ childData: res.data.results }))
+        .catch((err) => {
+          console.log(err.message);
+          this.setState({ isError: err });
+        });
     }
 
+    componentDidMount() {
+      this.fetchData(axios);
+    }
     // slideNext() {}
 
     generateChildData(data) {
+      if (this.state.isError) {
+        return (
+          <Typography
+            type={"regular"}
+            text={`Something went wrong!, ${this.state.isError.message}`}
+            style={{ textAlign: "center", margin: "auto" }}
+          />
+        );
+      }
+      if (!this.state.childData || this.state.childData.length === 0)
+        return null;
+
       return data.map((movie, i) => {
         const props = { ...childProps };
 
@@ -129,7 +59,7 @@ const Slider = (
           <Button type="leftArrow" style={{ left: "-6rem" }} />
           <div className={classes.SlideContainer}>
             <div className={classes.Slide}>
-              {this.generateChildData(this.state.testData)}
+              {this.generateChildData(this.state.childData)}
             </div>
           </div>
           <Button type="rightArrow" style={{ right: "-6rem" }} />

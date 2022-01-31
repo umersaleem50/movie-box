@@ -1,5 +1,7 @@
 import React from "react";
+
 import classes from "./Button.module.scss";
+
 const Button = React.forwardRef((props, ref) => {
   const customStyle = { ...props.style };
   let assignClass = [classes.Button];
@@ -20,6 +22,9 @@ const Button = React.forwardRef((props, ref) => {
       break;
     case "close":
       assignClass.push(classes.Close);
+      break;
+    case "logo":
+      assignClass.push(classes.Logo);
       break;
     case "leftArrow":
       assignClass.push(classes.LeftArrow);
