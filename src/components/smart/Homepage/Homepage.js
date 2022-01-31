@@ -3,7 +3,6 @@ import { MOVIE_BOX_PROPS } from "../../../Axios/Config";
 import Aux from "../../UI/Hoc/Aux";
 import Header from "../Header/Header";
 import MovieBox from "../MovieBox/MovieBox";
-import MovieBoxTes from "../MovieBox/MovieBoxTes";
 import Slider from "../Slider/Slider";
 import FeatureSlideAxios from "../../../Axios/featureSlideAxios";
 
@@ -13,9 +12,10 @@ class Homepage extends Component {
       <Aux>
         <Header />
         <section>
-          {Slider(MovieBoxTes, FeatureSlideAxios, MOVIE_BOX_PROPS, {
+          {Slider(MovieBox, FeatureSlideAxios, MOVIE_BOX_PROPS, {
             heading: "Featured Movies",
           })}
+          {/* <MovieBoxTes /> */}
         </section>
       </Aux>
     );

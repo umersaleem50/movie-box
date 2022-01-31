@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Component } from "react";
 import { BASE_URL_IMG_500 } from "../../../Axios/Config";
 import noImage from "../../../assets/noImg.png";
@@ -11,83 +11,83 @@ import Button from "../../UI/Button/Button";
 import genreAxios from "../../../Axios/genersAxios";
 import { generateHeading } from "../../../Axios/HelperFunctions";
 
-class MovieBox extends Component {
-  state = {
-    isLoaded: false,
-    isFavorite: false,
-  };
+const MovieBox = React.forwardRef((props, ref) => {
+  const [isLoader, setIsLoaded] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(false);
+  // state = {
+  //   isLoaded: false,
+  //   isFavorite: false,
+  // };
 
-  refImage = React.createRef();
+  const refImage = React.createRef();
 
   // generateGenres() {
   //   genreAxios.get("/").then((res) => console.log(res));
   //   return "test";
   // }
 
-  loaded = () => {
-    this.setState({ isLoaded: true });
-    this.refImage.current.style.opacity = "1";
-    this.refImage.current.style.height = "100%";
+  const loaded = () => {
+    setIsLoaded(true);
+    refImage.current.style.opacity = "1";
+    refImage.current.style.height = "100%";
   };
 
-  render() {
-    const styleTypography = {
-      marginTop: ".7rem",
-      fontSize: "1.3rem",
-      color: "var(--color-white-grey)",
-      // marginBottom: ".5rem",
-    };
+  const styleTypography = {
+    marginTop: ".7rem",
+    fontSize: "1.3rem",
+    color: "var(--color-white-grey)",
+    // marginBottom: ".5rem",
+  };
 
-    return (
-      <figure className={classes.MovieBox}>
-        <div className={classes.ImgContainer}>
-          <Button
-            type="logo"
-            style={{
-              position: "absolute",
-              top: "1.5rem",
-              right: "1.5rem",
-              backgroundColor: this.state.isFavorite ? "#be123c" : "#eeeeee81",
-            }}
-            clicked={() => {
-              console.log(this.state.isFavorite);
-              this.setState({ isFavorite: !this.state.isFavorite });
-            }}
-          />
-          {!this.state.isLoaded && <Spinner />}
-          <img
-            ref={this.refImage}
-            src={BASE_URL_IMG_500 + this.props.poster_path || noImage}
-            ref={this.refImage}
-            alt="Poster"
-            onLoad={this.loaded}
-          />
-        </div>
-        <div className={classes.Detail}>
-          <Typography
-            type="sub-heading"
-            style={styleTypography}
-            text={this.props.release_date}
-          />
-          <Typography
-            type="sub-heading"
-            text={generateHeading(this.props.title)}
-            style={{
-              marginBottom: ".5rem",
-              whiteSpace: "pre-line",
-              fontSize: "1.6rem",
-            }}
-          />
-          <RatingBox rating={this.props.vote_average} />
-          <Typography
-            type="regular"
-            text={this.props.genre_ids || "test"}
-            style={styleTypography}
-          />
-        </div>
-      </figure>
-    );
-  }
-}
+  return (
+    <figure className={classes.MovieBox} ref={ref}>
+      <div className={classes.ImgContainer}>
+        <Button
+          type="logo"
+          style={{
+            position: "absolute",
+            top: "1.5rem",
+            right: "1.5rem",
+            backgroundColor: isFavorite ? "#be123c" : "#eeeeee81",
+          }}
+          clicked={() => {
+            console.log(isFavorite);
+            setIsFavorite(!isFavorite);
+          }}
+        />
+        {!isLoader && <Spinner />}
+        <img
+          ref={refImage}
+          src={BASE_URL_IMG_500 + props.poster_path || noImage}
+          ref={refImage}
+          alt="Poster"
+          onLoad={loaded}
+        />
+      </div>
+      <div className={classes.Detail}>
+        <Typography
+          type="sub-heading"
+          style={styleTypography}
+          text={props.release_date}
+        />
+        <Typography
+          type="sub-heading"
+          text={generateHeading(props.title)}
+          style={{
+            marginBottom: ".5rem",
+            whiteSpace: "pre-line",
+            fontSize: "1.6rem",
+          }}
+        />
+        <RatingBox rating={props.vote_average} />
+        <Typography
+          type="regular"
+          text={props.genre_ids || "test"}
+          style={styleTypography}
+        />
+      </div>
+    </figure>
+  );
+});
 
 export default MovieBox;

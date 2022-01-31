@@ -10,6 +10,7 @@ const Slider = (ChildComponent, axios, childProps, parentProps) => {
     }
 
     childRef = React.createRef();
+    slideRef = React.createRef();
 
     state = {
       currentSlideIndex: 1,
@@ -27,8 +28,35 @@ const Slider = (ChildComponent, axios, childProps, parentProps) => {
         });
     }
 
+    displayNumOfChild() {
+      const slideWidth = this.slideRef.current.clientWidth;
+      // this.childRef.current.style.marginRight = "5rem";
+      const childWidth = this.childRef.current.clientWidth;
+      const test = Math.floor(slideWidth / childWidth);
+      const numOfChild = test * childWidth;
+      const gap = slideWidth - numOfChild;
+      this.slideRef.current.style.gridGap = `${
+        (Math.abs(gap) / (test - 1) > 70 && 70) || Math.abs(gap) / (test - 1)
+      }px`;
+      console.log(slideWidth, childWidth, gap, numOfChild, test);
+      // const numOfChildWillDisplay = slideWidth / childWidth;
+      // const RemainingWidth =
+      //   (numOfChildWillDisplay - numOfChildWillDisplay.toFixed(0)) * childWidth;
+      // console.log(
+      //   slideWidth,
+      //   childWidth,
+      //   numOfChildWillDisplay,
+      //   RemainingWidth
+      // );
+    }
+
+    componentDidUpdate() {
+      this.displayNumOfChild();
+    }
+
     componentDidMount() {
       this.fetchData(axios);
+      // this.slideRef.current.style.gridGap = "13rem";
     }
     slideNext() {
       if (this.state.currentSlideIndex >= this.state.childData.length) {
@@ -59,9 +87,15 @@ const Slider = (ChildComponent, axios, childProps, parentProps) => {
         Object.keys(props).forEach((propItem, i) => {
           props[propItem] = movie[propItem];
         });
+
+        // const MynewCom = ChildComponent;
         return (
-          // <ChildComponent key={i} {...props} ref={i === 0 && this.childRef} />
-          ChildComponent({ ...props }, i === 0 && this.childRef)
+          <ChildComponent
+            key={i}
+            {...props}
+            ref={i === 0 ? this.childRef : null}
+          />
+          // ChildComponent({ ...props }, i === 0 && this.childRef)
         );
       });
     }
@@ -77,7 +111,7 @@ const Slider = (ChildComponent, axios, childProps, parentProps) => {
           <div className={classes.MainContent}>
             <Button type="leftArrow" />
             <div className={classes.SlideContainer}>
-              <div className={classes.Slide}>
+              <div className={classes.Slide} ref={this.slideRef}>
                 {this.generateChildData(this.state.childData)}
               </div>
             </div>
