@@ -8,8 +8,11 @@ const Slider = (ChildComponent, axios, childProps, parentProps) => {
     constructor(props) {
       super(props);
     }
+
+    childRef = React.createRef();
+
     state = {
-      currentIndex: 0,
+      currentSlideIndex: 1,
       childData: [],
       isError: null,
     };
@@ -27,7 +30,15 @@ const Slider = (ChildComponent, axios, childProps, parentProps) => {
     componentDidMount() {
       this.fetchData(axios);
     }
-    // slideNext() {}
+    slideNext() {
+      if (this.state.currentSlideIndex >= this.state.childData.length) {
+        this.setState({ currentSlideIndex: 1 });
+        return;
+      }
+      this.setState((prevState, prevProp) => ({
+        currentSlideIndex: prevState.currentSlideIndex + 1,
+      }));
+    }
 
     generateChildData(data) {
       if (this.state.isError) {
@@ -48,21 +59,30 @@ const Slider = (ChildComponent, axios, childProps, parentProps) => {
         Object.keys(props).forEach((propItem, i) => {
           props[propItem] = movie[propItem];
         });
-        return <ChildComponent key={i} {...props} />;
+        return (
+          // <ChildComponent key={i} {...props} ref={i === 0 && this.childRef} />
+          ChildComponent({ ...props }, i === 0 && this.childRef)
+        );
       });
     }
 
     render() {
       return (
         <div className={classes.Slider}>
-          <Typography type="sub-heading" text={parentProps.heading} />
-          <Button type="leftArrow" style={{ left: "-6rem" }} />
-          <div className={classes.SlideContainer}>
-            <div className={classes.Slide}>
-              {this.generateChildData(this.state.childData)}
+          <Typography
+            type="sub-heading"
+            text={parentProps.heading}
+            style={{ marginBottom: "3rem" }}
+          />
+          <div className={classes.MainContent}>
+            <Button type="leftArrow" />
+            <div className={classes.SlideContainer}>
+              <div className={classes.Slide}>
+                {this.generateChildData(this.state.childData)}
+              </div>
             </div>
+            <Button type="rightArrow" />
           </div>
-          <Button type="rightArrow" style={{ right: "-6rem" }} />
         </div>
       );
     }

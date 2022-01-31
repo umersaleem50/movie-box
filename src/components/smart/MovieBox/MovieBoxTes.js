@@ -39,7 +39,7 @@ class MovieBox extends Component {
     };
 
     return (
-      <figure className={classes.MovieBox}>
+      <figure className={classes.MovieBox} ref={innerRef}>
         <div className={classes.ImgContainer}>
           <Button
             type="logo"
@@ -90,4 +90,6 @@ class MovieBox extends Component {
   }
 }
 
-export default MovieBox;
+export default React.forwardRef((props, ref) => (
+  <MovieBox {...props} innerRef={ref} />
+));
