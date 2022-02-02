@@ -1,5 +1,10 @@
 import axios from "axios";
-import { params } from "./Config";
-axios.defaults.baseURL = `https://api.themoviedb.org/3/search/`;
+import { BASE_URL_SEARCH_BAR, params } from "./Config";
+// axios.defaults.baseURL = `https://api.themoviedb.org/3/search/`;
 
-export default axios;
+const searchAxios = axios.create({
+  params: params,
+  baseURL: BASE_URL_SEARCH_BAR,
+});
+
+export default searchAxios;

@@ -20,7 +20,10 @@ const Slider = (ChildComponent, axios, childProps, parentProps) => {
     fetchData() {
       axios
         .get("/")
-        .then((res) => this.setState({ childData: res.data.results }))
+        .then((res) => {
+          console.log(res);
+          this.setState({ childData: res.data.results });
+        })
         .catch((err) => {
           console.log(err.message);
           this.setState({ isError: err });

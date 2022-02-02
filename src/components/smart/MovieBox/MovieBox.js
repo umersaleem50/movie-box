@@ -80,11 +80,11 @@ const MovieBox = React.forwardRef((props, ref) => {
           }}
         />
         <RatingBox rating={props.vote_average} />
-        <Typography
+        {/* <Typography
           type="regular"
           text={props.genre_ids || "test"}
           style={styleTypography}
-        />
+        /> */}
       </div>
     </figure>
   );
