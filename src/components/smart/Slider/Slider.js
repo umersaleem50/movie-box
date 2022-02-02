@@ -8,15 +8,14 @@ const Slider = (ChildComponent, axios, childProps, parentProps) => {
     constructor(props) {
       super(props);
     }
-
-    childRef = React.createRef();
-    slideRef = React.createRef();
-
     state = {
       currentSlideIndex: 1,
       childData: [],
-      isError: null,
+      isError: false,
     };
+
+    childRef = React.createRef();
+    slideRef = React.createRef();
 
     fetchData() {
       axios
@@ -28,37 +27,37 @@ const Slider = (ChildComponent, axios, childProps, parentProps) => {
         });
     }
 
-    displayNumOfChild() {
+    onWindowResize = () => {
+      console.log(this.slideRef);
+      window.addEventListener("resize", this.displayNumOfChild);
+    };
+
+    displayNumOfChild = () => {
+      if (this.state.isError) return;
+
       const slideWidth = this.slideRef.current.clientWidth;
       // this.childRef.current.style.marginRight = "5rem";
       const childWidth = this.childRef.current.clientWidth;
-      const test = Math.floor(slideWidth / childWidth);
-      const numOfChild = test * childWidth;
-      const gap = slideWidth - numOfChild;
+      const numberOfChildOnScreen = Math.floor(slideWidth / childWidth);
+      const widthOfChilds = numberOfChildOnScreen * childWidth;
+      const totalGap = slideWidth - widthOfChilds;
+      const singleGap = totalGap / (numberOfChildOnScreen - 1);
       this.slideRef.current.style.gridGap = `${
-        (Math.abs(gap) / (test - 1) > 70 && 70) || Math.abs(gap) / (test - 1)
+        singleGap >= 70 ? 50 : singleGap
       }px`;
-      console.log(slideWidth, childWidth, gap, numOfChild, test);
-      // const numOfChildWillDisplay = slideWidth / childWidth;
-      // const RemainingWidth =
-      //   (numOfChildWillDisplay - numOfChildWillDisplay.toFixed(0)) * childWidth;
-      // console.log(
-      //   slideWidth,
-      //   childWidth,
-      //   numOfChildWillDisplay,
-      //   RemainingWidth
-      // );
-    }
+    };
 
     componentDidUpdate() {
       this.displayNumOfChild();
+      this.onWindowResize();
     }
 
     componentDidMount() {
       this.fetchData(axios);
+
       // this.slideRef.current.style.gridGap = "13rem";
     }
-    slideNext() {
+    slideNext = () => {
       if (this.state.currentSlideIndex >= this.state.childData.length) {
         this.setState({ currentSlideIndex: 1 });
         return;
@@ -66,7 +65,7 @@ const Slider = (ChildComponent, axios, childProps, parentProps) => {
       this.setState((prevState, prevProp) => ({
         currentSlideIndex: prevState.currentSlideIndex + 1,
       }));
-    }
+    };
 
     generateChildData(data) {
       if (this.state.isError) {
@@ -106,16 +105,16 @@ const Slider = (ChildComponent, axios, childProps, parentProps) => {
           <Typography
             type="sub-heading"
             text={parentProps.heading}
-            style={{ marginBottom: "3rem" }}
+            style={{ marginBottom: "3rem", fontSize: "2.5rem" }}
           />
           <div className={classes.MainContent}>
-            <Button type="leftArrow" />
+            {/* <Button type="leftArrow" /> */}
             <div className={classes.SlideContainer}>
               <div className={classes.Slide} ref={this.slideRef}>
                 {this.generateChildData(this.state.childData)}
               </div>
             </div>
-            <Button type="rightArrow" />
+            {/* <Button type="rightArrow" clicked={this.slideNext} /> */}
           </div>
         </div>
       );
