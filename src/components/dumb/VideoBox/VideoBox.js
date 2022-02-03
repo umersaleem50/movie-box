@@ -1,10 +1,10 @@
 import React from "react";
-import Aux from "../../UI/Hoc/Aux";
+import Auxiliary from "../../UI/Hoc/Auxiliary";
 import Overlay from "../../UI/Overlay/Overlay";
 import classes from "./VideoBox.module.scss";
 const VideoBox = (props) => {
   return (
-    <Aux>
+    <Auxiliary>
       <Overlay show opacity={0.3} />
       <video
         className={classes.VideoBox}
@@ -15,7 +15,7 @@ const VideoBox = (props) => {
         // loop={props.background}
         onEnded={props.videoEnd}
       />
-    </Aux>
+    </Auxiliary>
   );
 };
 

@@ -14,8 +14,18 @@ const Slider = (ChildComponent, axios, childProps, parentProps) => {
       isError: false,
     };
 
+    /*
+    childRef is for any Child component passed in Slider function,
+    To then make Slider interactive based on Childcomponent Ref
+    */
     childRef = React.createRef();
     slideRef = React.createRef();
+
+    /*
+    THIS FUNCTION WILL FETCH DATA FROM SERVER BASED ON AXIOS ELEMENT AND PROVIDE
+    DATA TO USE AS PROPS FOR CHILD ELEMENTS. 
+    AXIOS OBJECT COULD BE DIFFRENT FOR REQUESTING FROM DIFFERNT END POINT.
+    */
 
     fetchData() {
       axios
@@ -30,10 +40,20 @@ const Slider = (ChildComponent, axios, childProps, parentProps) => {
         });
     }
 
+    /*
+    THIS FUNCTION WILL BE TRIGGER EVERYTIME IF THE WINDOWS RESIZE,
+    TO MAKE SLIDER COMPONENT RESPONSIVE.
+    */
+
     onWindowResize = () => {
       console.log(this.slideRef);
       window.addEventListener("resize", this.displayNumOfChild);
     };
+
+    /*
+    THIS FUNCTION WILL DECIDE THE NUMBER OF CHILD ELEMENTS TO BE DISPLAYED ON 
+    SCREEN FOR RESPONSIVENESS AS EVERY CHILD ELEMENT COULD BE DIFFRENT
+    */
 
     displayNumOfChild = () => {
       if (this.state.isError) return;
@@ -60,16 +80,24 @@ const Slider = (ChildComponent, axios, childProps, parentProps) => {
 
       // this.slideRef.current.style.gridGap = "13rem";
     }
-    slideNext = () => {
-      if (this.state.currentSlideIndex >= this.state.childData.length) {
-        this.setState({ currentSlideIndex: 1 });
-        return;
-      }
-      this.setState((prevState, prevProp) => ({
-        currentSlideIndex: prevState.currentSlideIndex + 1,
-      }));
-    };
 
+    /*
+    THIS FUNCTION WILL SLIDIND THE SLIDE IN SLIDER COMPONENT
+    */
+
+    // slideNext = () => {
+    //   if (this.state.currentSlideIndex >= this.state.childData.length) {
+    //     this.setState({ currentSlideIndex: 1 });
+    //     return;
+    //   }
+    //   this.setState((prevState, prevProp) => ({
+    //     currentSlideIndex: prevState.currentSlideIndex + 1,
+    //   }));
+    // };
+
+    /*
+    THIS FUNCTION WILL RENDER THE CHILD ELEMENTS BASED ON FATCHED DATA
+    */
     generateChildData(data) {
       if (this.state.isError) {
         return (
@@ -90,14 +118,12 @@ const Slider = (ChildComponent, axios, childProps, parentProps) => {
           props[propItem] = movie[propItem];
         });
 
-        // const MynewCom = ChildComponent;
         return (
           <ChildComponent
             key={i}
             {...props}
             ref={i === 0 ? this.childRef : null}
           />
-          // ChildComponent({ ...props }, i === 0 && this.childRef)
         );
       });
     }

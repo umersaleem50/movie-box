@@ -16,6 +16,7 @@ const SearchInput = (axios = defautlAxios, params, props = {}) => {
       searchType: "movie",
       ifLoading: false,
       showResult: false,
+      isError: false,
     };
 
     defaultParams = {
@@ -32,14 +33,15 @@ const SearchInput = (axios = defautlAxios, params, props = {}) => {
         .get(`/${this.state.searchType}`, {
           params: { ...(params || { ...this.defaultParams }), query: word },
         })
-        .then((res) =>
+        .then((res) => {
           this.setState({
             searchResult:
               res.data.results.length >= 5
                 ? [...res.data.results].slice(0, 5)
                 : res.data.results,
-          })
-        );
+          });
+        })
+        .catch((err) => this.setState({ isError: err }));
       this.setState({ isLoading: false });
       console.log(this.state.searchResult);
     }
@@ -84,6 +86,9 @@ const SearchInput = (axios = defautlAxios, params, props = {}) => {
             </Button>
           </div>
           {this.state.isLoading && <Spinner />}
+          {this.state.isError ? (
+            <p style={{ fontSize: "1.2rem" }}>Something went wrong!</p>
+          ) : null}
           {this.generateResult()}
         </div>
       );
@@ -109,6 +114,7 @@ const SearchInput = (axios = defautlAxios, params, props = {}) => {
               &#8203;
             </Button>
           </div>
+
           {this.showResults()}
         </div>
       );
