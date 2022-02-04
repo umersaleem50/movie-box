@@ -10,9 +10,12 @@ import topRatedSlideAxios from "../../../Axios/topRatedSlideAxios";
 import VideoElement from "../../dumb/videoEl/VideoElement";
 import exclusiveVideoAxios from "../../../Axios/exclusiveVideoAxios";
 import Iframe from "react-iframe";
+import youtubeVedioAxios from "../../../Axios/youtubeVedioAxios";
 class Homepage extends Component {
   state = {
     videoUrl: "",
+
+    movieId: "372058",
   };
 
   videoClicked = (key) => {
@@ -36,13 +39,19 @@ class Homepage extends Component {
           })}
         </section>
         <section className={classes.Section}>
-          {Slider(VideoElement, exclusiveVideoAxios, VIDEO_ELEMENT_PROPS, {
-            heading: "Exclusive Videos",
-          })}
+          {Slider(
+            VideoElement,
+            youtubeVedioAxios(this.state.movieId),
+            VIDEO_ELEMENT_PROPS,
+            {
+              heading: "Exclusive Videos",
+            },
+            "videos"
+          )}
         </section>
 
         <Iframe
-          url={`http://www.youtube.com/embed/xDMP3i36naA`}
+          url={`http://www.youtube.com/embed/xU47nhruN-Q`}
           width="450px"
           height="450px"
           id="myId"

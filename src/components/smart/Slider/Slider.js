@@ -3,7 +3,13 @@ import Button from "../../UI/Button/Button";
 import Typography from "../../UI/Typography/Typography";
 import classes from "./Slider.module.scss";
 
-const Slider = (ChildComponent, axios, childProps, parentProps) => {
+const Slider = (
+  ChildComponent,
+  axios,
+  childProps,
+  parentProps,
+  resquestRoute
+) => {
   class SlideComponent extends Component {
     constructor(props) {
       super(props);
@@ -29,9 +35,10 @@ const Slider = (ChildComponent, axios, childProps, parentProps) => {
 
     fetchData() {
       axios
-        .get("/")
+        .get(`/${resquestRoute || ""}`)
         .then((res) => {
           console.log(res);
+          console.log(resquestRoute);
           this.setState({ childData: res.data.results });
         })
         .catch((err) => {

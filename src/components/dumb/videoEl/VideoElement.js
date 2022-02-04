@@ -8,26 +8,26 @@ import { generateHeading } from "../../../Axios/HelperFunctions";
 import youtubeVedioAxios from "../../../Axios/youtubeVedioAxios";
 const VideoElement = React.forwardRef((props, ref) => {
   const [isLoaded, setIsLoaded] = useState(false);
-  const [videoData, setVideoData] = useState("");
+  // const [videoData, setVideoData] = useState("");
   const [isError, setIsError] = useState(false);
 
-  const requestVideoUrl = () => {
-    youtubeVedioAxios
-      .get(`/${props.id}/videos`)
-      .then((res) => setVideoData(res.data.results[0]))
-      .catch((err) => setIsError(err));
-  };
+  // const requestVideoUrl = () => {
+  //   youtubeVedioAxios
+  //     .get(`/${props.id}/videos`)
+  //     .then((res) => setVideoData(res.data.results[0]))
+  //     .catch((err) => setIsError(err));
+  // };
 
-  useEffect(() => {
-    requestVideoUrl();
-  }, []);
+  // useEffect(() => {
+  //   requestVideoUrl();
+  // }, []);
 
   return (
     <div
       className={classes.VideoElement}
       onClick={props.clicked}
       ref={ref}
-      data-urlkey={videoData && videoData.key}
+      // data-urlkey={videoData && videoData.key}
     >
       {isError && <p>Something went wrong!</p>}
       <div className={classes.ImgBox}>
@@ -43,7 +43,7 @@ const VideoElement = React.forwardRef((props, ref) => {
       <Typography
         type="sub-heading"
         text={
-          (videoData && videoData.name) ||
+          // (videoData && videoData.name) ||
           (props.title && generateHeading(props.title)) ||
           (props.original_title && generateHeading(props.original_title))
         }

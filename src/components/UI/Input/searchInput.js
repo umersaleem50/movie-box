@@ -48,7 +48,10 @@ const SearchInput = (axios = defautlAxios, params, props = {}) => {
 
     generateResult() {
       if (this.state.searchResult.length === 0) return;
+
       return [...this.state.searchResult].map((movie, i) => {
+        console.log(`${movie.id}: ${movie.original_title}`);
+
         return (
           <MovieBoxSmall
             key={movie.id}

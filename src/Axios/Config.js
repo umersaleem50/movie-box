@@ -21,6 +21,11 @@ const params = {
   adult: "false",
 };
 
+const VideosParams = {
+  api_key: API_KEY,
+  language: "en-US",
+};
+
 /*
 Slider function takes props arugment to compare it will response data 
 & add it to child components of the slider component,
@@ -56,4 +61,5 @@ export {
   BASE_URL_SEARCH_BAR,
   VIDEO_ELEMENT_PROPS,
   BASE_URL_VIDEO_URL,
+  VideosParams,
 };
