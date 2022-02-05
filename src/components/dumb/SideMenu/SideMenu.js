@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Auxiliary from "../../UI/Hoc/Auxiliary";
 import Overlay from "../../UI/Overlay/Overlay";
 import classes from "./SideMenu.module.scss";
@@ -58,6 +58,7 @@ const SideMenu = (props) => {
         clicked={props.closeSideBar}
         show={props.toggle}
         index={"20"}
+        isFixed={true}
       />
     </Auxiliary>
   );

@@ -2,6 +2,7 @@ import React from "react";
 import Auxiliary from "../../UI/Hoc/Auxiliary";
 import Overlay from "../../UI/Overlay/Overlay";
 import classes from "./VideoBox.module.scss";
+
 const VideoBox = (props) => {
   return (
     <Auxiliary>

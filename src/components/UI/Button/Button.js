@@ -3,7 +3,6 @@ import React from "react";
 import classes from "./Button.module.scss";
 
 const Button = React.forwardRef((props, ref) => {
-  const customStyle = { ...props.style };
   let assignClass = [classes.Button];
   if (props.active) assignClass.push(classes[`${props.type}Active`]);
   switch (props.type) {

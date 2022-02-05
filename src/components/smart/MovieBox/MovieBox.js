@@ -1,14 +1,14 @@
 import React, { useState } from "react";
-import { Component } from "react";
+
 import { BASE_URL_IMG_500 } from "../../../Axios/Config";
 import noImage from "../../../assets/noImg.png";
-import heartLogo from "../../../assets/logo/heart.png";
+
 import RatingBox from "../../dumb/RatingBox/Small/RatingBox--small";
 import Typography from "../../UI/Typography/Typography";
 import Spinner from "../../UI/Spinner/Spinner";
 import classes from "./MovieBox.module.scss";
 import Button from "../../UI/Button/Button";
-import genreAxios from "../../../Axios/genersAxios";
+
 import { generateHeading } from "../../../Axios/HelperFunctions";
 
 const MovieBox = React.forwardRef((props, ref) => {
@@ -40,7 +40,7 @@ const MovieBox = React.forwardRef((props, ref) => {
   };
 
   return (
-    <figure className={classes.MovieBox} ref={ref}>
+    <figure className={classes.MovieBox} ref={ref} onClick={props.clicked}>
       <div className={classes.ImgContainer}>
         <Button
           type="logo"
@@ -59,7 +59,6 @@ const MovieBox = React.forwardRef((props, ref) => {
         <img
           ref={refImage}
           src={BASE_URL_IMG_500 + props.poster_path || noImage}
-          ref={refImage}
           alt="Poster"
           onLoad={loaded}
         />

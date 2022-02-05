@@ -26,6 +26,11 @@ const VideosParams = {
   language: "en-US",
 };
 
+const CastParams = {
+  profile_path: "",
+  name: "",
+};
+
 /*
 Slider function takes props arugment to compare it will response data 
 & add it to child components of the slider component,
@@ -46,8 +51,9 @@ const VIDEO_ELEMENT_PROPS = {
   backdrop_path: "",
   poster_path: "",
   original_title: "",
-  title: "",
+  name: "",
   id: "",
+  otherKey: "",
 };
 
 export {
@@ -62,4 +68,5 @@ export {
   VIDEO_ELEMENT_PROPS,
   BASE_URL_VIDEO_URL,
   VideosParams,
+  CastParams,
 };

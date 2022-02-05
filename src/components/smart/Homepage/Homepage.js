@@ -1,6 +1,10 @@
 import React, { Component } from "react";
 import classes from "./Homepage.module.scss";
-import { MOVIE_BOX_PROPS, VIDEO_ELEMENT_PROPS } from "../../../Axios/Config";
+import {
+  CastParams,
+  MOVIE_BOX_PROPS,
+  VIDEO_ELEMENT_PROPS,
+} from "../../../Axios/Config";
 import Auxiliary from "../../UI/Hoc/Auxiliary";
 import Header from "../Header/Header";
 import MovieBox from "../MovieBox/MovieBox";
@@ -8,19 +12,39 @@ import Slider from "../Slider/Slider";
 import FeatureSlideAxios from "../../../Axios/featureSlideAxios";
 import topRatedSlideAxios from "../../../Axios/topRatedSlideAxios";
 import VideoElement from "../../dumb/videoEl/VideoElement";
-import exclusiveVideoAxios from "../../../Axios/exclusiveVideoAxios";
 import Iframe from "react-iframe";
 import youtubeVedioAxios from "../../../Axios/youtubeVedioAxios";
+import VideoPlayer from "../../dumb/VideoPlayer/VideoPlayer";
+import castAxios from "../../../Axios/castAxios";
+import CastBox from "../../dumb/CastBox/CastBox";
 class Homepage extends Component {
   state = {
     videoUrl: "",
 
-    movieId: "372058",
+    movieId: "324857",
+
+    isPlayingVideo: false,
+    videoYoutubeId: "xU47nhruN-Q",
+    castData: [],
   };
 
-  videoClicked = (key) => {
-    this.setState({ videoUrl: key });
+  fetchCastData = () => {
+    castAxios(this.state.movieId)
+      .get("/credits")
+      .then((res) => {
+        console.log(res.data.cast);
+        this.setState({ castData: res.data.cast });
+        return res;
+        // return res.data.cast;
+      });
+
+    // console.log(data);
+    // return data;
   };
+
+  componentDidMount() {
+    this.fetchCastData();
+  }
 
   render() {
     return (
@@ -49,16 +73,18 @@ class Homepage extends Component {
             "videos"
           )}
         </section>
-
-        <Iframe
-          url={`http://www.youtube.com/embed/xU47nhruN-Q`}
-          width="450px"
-          height="450px"
-          id="myId"
-          className="myClassname"
-          display="initial"
-          position="relative"
-        />
+        <section className={classes.Section}>
+          {Slider(
+            CastBox,
+            null,
+            CastParams,
+            {
+              heading: "Featured Casts",
+            },
+            "credits",
+            this.state.castData
+          )}
+        </section>
       </Auxiliary>
     );
   }

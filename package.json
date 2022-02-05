@@ -39,6 +39,7 @@
   },
   "devDependencies": {
     "node-sass": "^7.0.1",
-    "react-iframe": "^1.8.0"
+    "react-iframe": "^1.8.0",
+    "react-youtube": "^7.14.0"
   }
 }

@@ -8,7 +8,8 @@ const Slider = (
   axios,
   childProps,
   parentProps,
-  resquestRoute
+  requestRoute,
+  optionalData
 ) => {
   class SlideComponent extends Component {
     constructor(props) {
@@ -34,11 +35,14 @@ const Slider = (
     */
 
     fetchData() {
+      if (!axios) {
+        this.setState({ childData: optionalData });
+        return;
+      }
       axios
-        .get(`/${resquestRoute || ""}`)
+        .get(`/${requestRoute || ""}`)
         .then((res) => {
           console.log(res);
-          console.log(resquestRoute);
           this.setState({ childData: res.data.results });
         })
         .catch((err) => {
@@ -83,6 +87,7 @@ const Slider = (
     }
 
     componentDidMount() {
+      if (optionalData) return;
       this.fetchData(axios);
 
       // this.slideRef.current.style.gridGap = "13rem";
@@ -115,6 +120,28 @@ const Slider = (
           />
         );
       }
+
+      if (optionalData) {
+        return optionalData.map((movie, i) => {
+          const props = { ...childProps };
+
+          Object.keys(props).forEach((propItem, i) => {
+            if (movie.key) {
+              props.otherKey = movie.key;
+              return;
+            }
+            props[propItem] = movie[propItem];
+          });
+          return (
+            <ChildComponent
+              key={i}
+              {...props}
+              ref={i === 0 ? this.childRef : null}
+            />
+          );
+        });
+      }
+
       if (!this.state.childData || this.state.childData.length === 0)
         return null;
 
@@ -122,9 +149,12 @@ const Slider = (
         const props = { ...childProps };
 
         Object.keys(props).forEach((propItem, i) => {
+          if (movie.key) {
+            props.otherKey = movie.key;
+            return;
+          }
           props[propItem] = movie[propItem];
         });
-
         return (
           <ChildComponent
             key={i}
