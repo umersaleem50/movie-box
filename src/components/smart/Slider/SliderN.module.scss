@@ -1,0 +1,15 @@
+.Slider {
+  width: 90%;
+  margin: 0 auto;
+  overflow: hidden;
+  //   background-color: rosybrown;
+  @media only screen and (max-width: 600px) {
+    width: 90%;
+  }
+}
+
+.InnerSlider {
+  cursor: drag;
+  display: flex;
+  flex-direction: row;
+}

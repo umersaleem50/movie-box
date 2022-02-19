@@ -1,0 +1,42 @@
+.Footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-direction: column;
+  height: 15rem;
+  margin-top: 5rem;
+  //   &:not(:last-child) {
+  //     margin-bottom: 5rem;
+  //   }
+}
+.Social {
+  display: flex;
+  max-width: 50rem;
+  width: 20rem;
+  justify-content: space-between;
+  height: 2rem;
+
+  img {
+    width: auto;
+    height: 100%;
+    cursor: pointer;
+  }
+}
+.Links {
+  display: flex;
+  justify-content: space-between;
+  width: 40rem;
+
+  @media only screen and (max-width: 600px) {
+    width: 30rem;
+  }
+  a {
+    color: var(--color-black-light);
+    text-decoration: none;
+    font-size: 1.4rem;
+
+    @media only screen and (max-width: 600px) {
+      font-size: 1.2rem;
+    }
+  }
+}

@@ -1,5 +1,5 @@
 .MovieBox {
-  width: 25rem;
+  min-width: 25rem;
   height: auto;
   display: flex;
   flex-direction: column;
@@ -9,8 +9,9 @@
   border-radius: 1rem;
   overflow: hidden;
   margin-bottom: 2rem;
+
   @media only screen and (max-width: 900px) {
-    width: 22rem;
+    min-width: 22rem;
   }
   @media only screen and (max-width: 600px) {
     width: 22rem;
@@ -21,6 +22,10 @@
     // background-color: var(--color-white-light);
     box-shadow: 1rem 1rem 2rem rgba(#000, 0.2);
     // transform: translateY(-0.5rem);
+  }
+
+  &:not(:last-of-type) {
+    margin-right: 3rem;
   }
 }
 
@@ -45,5 +50,7 @@
     width: 100%;
     height: 0;
     opacity: 0;
+    // cursor: none;
+    pointer-events: none;
   }
 }
